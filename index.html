@@ -4,21 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css/style.css">
+    <link rel="stylesheet" href="style.css/geral.css">
 </head>
 <body>
-    <header>
-        <form action="#" id="nova-anotacao">
-            <input class="title js-title" type="text" placeholder="Digite o titulo">
-            <textarea name="anotacao" id="anotacao" class="anotacao js-anotacao"></textarea>
-            <label for="cor">Escolha a cor do bloco :</label> <input type="color" id="cor" name="cor" class="cor js-cor">
-            <label for="cor">Escolha a cor da letra :</label> <input type="color" id="cor" name="cor" class="cor js-cor-letra">
-            <input class="submit js-submit" type="submit" value="Criar Anotacao">
-        </form>
-    </header>
-
     <main>
-
+        <form>
+            <label for="anotacao">Digite sua anotacao:</label>
+            <input class="js-texto-anotacao" type="text" name="anotacao" id="anotacao" required placeholder="anotacao">
+            <input class="js-btn-gerar-anotacao" type="button" value="Gerar Anotacao">
+        </form>
     </main>
 
     <script src="scripts/main.js"></script>
