@@ -20,9 +20,10 @@ window.addEventListener('DOMContentLoaded', () => {
             switch (this.textContent) {
                 case "Sim":
                     main.removeChild(lixeiraClicado.target.parentElement)
-                    btnSectionApagarAnotacao.forEach((btn) => btn.classList.add('none'))
+                    btnSectionApagarAnotacao[0].parentElement.classList.add('none')
                     sectionApagarAnotacao.firstElementChild.textContent = 'Anotação apagada'
                     setTimeout(() => {
+                            btnSectionApagarAnotacao[0].parentElement.classList.remove('none')
                         sectionApagarAnotacao.firstElementChild.textContent = 'Deseja Realmente apagar a anotação ?'
                         btnSectionApagarAnotacao.forEach((btn) => btn.classList.remove('none'))
                         removerFundoApagarAnotacao()
@@ -47,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
     function gerarAnotacao() {
         const mesFormatado = data.getMonth() + 1 < 10 ? '0'.concat(`${data.getMonth() + 1}`) : data.getMonth() + 1
         const dataAnotacao = document.createElement('p')
-        dataAnotacao.textContent = `data : ${data.getDate()}/${mesFormatado}/${data.getFullYear()}`
+        dataAnotacao.textContent = `data da anotação : ${data.getDate()}/${mesFormatado}/${data.getFullYear()}`
         dataAnotacao.classList.add('data-anotacao')
         let imgLixeira = document.createElement('img')
         imgLixeira.setAttribute('src', '../image/lixeira.svg')
@@ -61,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.appendChild(paragrafoAnotacao)
         sectionAnotacao.classList.add('section-anotacao')
         sectionAnotacao.appendChild(imgLixeira)
-        main.appendChild(sectionAnotacao)
+        main.insertBefore(sectionAnotacao, main.firstChild)
         imgLixeira.addEventListener('click', apagarAnotacao)
     }
 

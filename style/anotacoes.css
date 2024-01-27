@@ -8,14 +8,18 @@ main {
 
 main > section.section-anotacao {
     margin: 15px auto 0 auto;
-    padding-bottom: 80px;
     animation: criar-section 0.3s forwards;
     border-radius:5px ;
+    display: flex;
+    padding-bottom: 45px;
 }
 
-p.anotacao {
-    position: absolute;
-    top: 30px;
+section.section-anotacao p.anotacao {
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    width: 100%;
+    border-bottom: 1px solid #c4c4c4;
+    word-break: break-all;
 }
 
 img.img-lixeira {
@@ -25,12 +29,12 @@ img.img-lixeira {
     position: absolute;
     bottom: 1vh;
     right: 0;
-    padding: 2px;
 }
 
 p.data-anotacao {
     position: absolute;
-    right: 1%;
+    left: 2%;
+    bottom: 2vh;
 }
 
 @keyframes criar-section{

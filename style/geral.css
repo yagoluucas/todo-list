@@ -14,7 +14,7 @@ body {
 
 body main > section {
     min-width: 80px;
-    max-width: 500px;
+    max-width: 550px;
     width: 90%;
     padding: 10px;
     border: 1px solid #cccc;
@@ -30,5 +30,5 @@ body main > section {
 }
 
 .none {
-    display: none;
+    display: none !important;
 }

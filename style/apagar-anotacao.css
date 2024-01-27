@@ -4,7 +4,7 @@ section.section-apagar-anotacao {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #252525;
+    justify-content: center;
     margin: 0 auto;
     width: 30%;
     padding: 15px;
@@ -13,18 +13,19 @@ section.section-apagar-anotacao {
     position: fixed;
     left: 35.69%;
     top: 40vh;
+    border: 2px solid #c4c4c4;
 }
 
 section.section-apagar-anotacao > div {
-margin: 60px auto 10px auto;
-width: 100%;
-display: flex;
-justify-content: space-evenly;
-flex-wrap: wrap;
-gap: 15px;
+    margin: 60px auto 10px auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-section.section-apagar-anotacao > div > button {
+section.section-apagar-anotacao>div>button {
     padding: 15px;
     color: #ffff;
     max-width: 170px;
@@ -37,23 +38,18 @@ section.section-apagar-anotacao > div > button {
     word-break: break-all;
 }
 
-section.section-apagar-anotacao > p {
+section.section-apagar-anotacao>p {
     text-align: center;
 }
 
-section.section-apagar-anotacao > div > button:nth-child(1) {
+section.section-apagar-anotacao>div>button:nth-child(1) {
     background-color: #FF0000;
 
 }
 
-section.section-apagar-anotacao > div > button:last-child {
+section.section-apagar-anotacao>div>button:last-child {
     background-color: #4CAF50;
 }
-
-section.none {
-    display: none;
-}
-
 
 section.animacao-apagar-anotacao {
     animation: animacao-apagar-anotacao 0.3s forwards;
