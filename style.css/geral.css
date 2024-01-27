@@ -1,8 +1,30 @@
 @import url('header.css');
 @import url('anotacoes.css');
 @import url('form.css');
+@import url('apagar-anotacao.css');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body main > section {
+    min-width: 80px;
+    max-width: 500px;
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #cccc;
+    position: relative;
+}
+
+body.escurecer-fundo {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+main.deixar-transparente {
+    opacity: 0.4;
+}
+
+.none {
+    display: none;
 }

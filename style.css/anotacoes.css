@@ -6,16 +6,16 @@ main {
     margin-top: 15vh;
 }
 
-main > section {
-    min-width: 80px;
-    max-width: 500px;
-    width: 45%;
+main > section.section-anotacao {
     margin: 25px auto 0 auto;
-    padding: 10px;
-    border: 1px solid #cccc;
-    position: relative;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
     animation: criar-section 0.3s forwards;
+    border-radius:5px ;
+}
+
+p.anotacao {
+    position: absolute;
+    top: 30px;
 }
 
 img.img-lixeira {
@@ -26,6 +26,11 @@ img.img-lixeira {
     bottom: 1vh;
     right: 0;
     padding: 2px;
+}
+
+p.data-anotacao {
+    position: absolute;
+    right: 1%;
 }
 
 @keyframes  criar-section{
