@@ -4,12 +4,15 @@ section.section-apagar-anotacao {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #D9D9D9;
-    margin: 120px auto 0 auto;
+    background: #252525;
+    margin: 0 auto;
     width: 30%;
     padding: 15px;
     min-width: 120px;
     max-width: 500px;
+    position: fixed;
+    left: 35.69%;
+    top: 40vh;
 }
 
 section.section-apagar-anotacao > div {
@@ -23,6 +26,7 @@ gap: 15px;
 
 section.section-apagar-anotacao > div > button {
     padding: 15px;
+    color: #ffff;
     max-width: 170px;
     min-width: 80px;
     width: 38%;
@@ -30,7 +34,6 @@ section.section-apagar-anotacao > div > button {
     cursor: pointer;
     border-radius: 5px;
     border: none;
-    color: #ffff;
     word-break: break-all;
 }
 
@@ -49,4 +52,21 @@ section.section-apagar-anotacao > div > button:last-child {
 
 section.none {
     display: none;
+}
+
+
+section.animacao-apagar-anotacao {
+    animation: animacao-apagar-anotacao 0.3s forwards;
+}
+
+@keyframes animacao-apagar-anotacao {
+    0% {
+        opacity: 0;
+        transform: translateY(10vh);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0vh);
+    }
 }

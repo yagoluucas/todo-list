@@ -1,0 +1,26 @@
+header {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    background: url('../image/montanha-preta.png') center center;
+    background-size: cover;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    font-size: 1.7rem;
+    margin-right: 10px;
+}
+
+input {
+padding: 15px;
+}
+
+input.btn-gerar-anotacao {
+    margin-left: 15px;
+}
