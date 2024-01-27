@@ -13,7 +13,7 @@ section.section-apagar-anotacao {
     position: fixed;
     left: 35.69%;
     top: 40vh;
-    border: 2px solid #c4c4c4;
+    background: #565252 ;
 }
 
 section.section-apagar-anotacao > div {
@@ -44,11 +44,18 @@ section.section-apagar-anotacao>p {
 
 section.section-apagar-anotacao>div>button:nth-child(1) {
     background-color: #FF0000;
+}
 
+section.section-apagar-anotacao>div>button:nth-child(1):hover {
+    background-color: #a30303;
 }
 
 section.section-apagar-anotacao>div>button:last-child {
     background-color: #4CAF50;
+}
+
+section.section-apagar-anotacao>div>button:last-child:hover {
+    background-color: #0d9211;
 }
 
 section.animacao-apagar-anotacao {
