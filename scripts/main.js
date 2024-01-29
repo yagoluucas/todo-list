@@ -8,17 +8,14 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnGerarAnotacao = document.querySelector('.js-btn-gerar-anotacao')
     const data = new Date()
     const header = document.querySelector('header')
-
-    // quando remove todas as anotações fica como null, precisa arrumar, porém está funcional
     if (localStorage.getItem('idsAnotacao') == null || localStorage.getItem('quantidadeDeAnotacoes') == null) {
         quantidadeDeAnotacoes = 0
         idAnotacao = 0
         localStorage.setItem('idsAnotacao', JSON.stringify([]))
     } else {
         idAnotacao = JSON.parse(localStorage.getItem('idsAnotacao'))
-        idAnotacao = idAnotacao[idAnotacao.length - 1]
+        idAnotacao = (idAnotacao[idAnotacao.length - 1])
         quantidadeDeAnotacoes = JSON.parse(localStorage.getItem('quantidadeDeAnotacoes'))
-        console.log(quantidadeDeAnotacoes, idAnotacao)
         const anotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
         anotacoes.forEach((id) => {
             let infoAnotacao = JSON.parse(localStorage.getItem(`anotacao ${id}`))
@@ -58,9 +55,8 @@ window.addEventListener('DOMContentLoaded', () => {
             switch (this.textContent) {
                 case "Sim":
                     let idAnotacaoRemovida = lixeiraClicado.target.parentElement.getAttribute('data-idAnotacao')
-                    console.log(idAnotacaoRemovida)
                     let idsAnotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
-                    idsAnotacoes.splice(idsAnotacoes.indexOf(idAnotacaoRemovida), 1)
+                    idsAnotacoes.splice(idsAnotacoes.indexOf(+idAnotacaoRemovida), 1)
                     localStorage.setItem('idsAnotacao', JSON.stringify(idsAnotacoes))
                     if (+localStorage.getItem('quantidadeDeAnotacoes') >= 1) {
                         quantidadeDeAnotacoes--
@@ -107,7 +103,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const textoData = `data da anotação : ${data.getDate()}/${mesFormatado}/${data.getFullYear()}`
         gerarSection(inputTextoAnotacao.value, textoData, idAnotacao)
         const anotacaoInfo = [inputTextoAnotacao.value, textoData, idAnotacao]
-        localStorage.setItem(`anotacao ${quantidadeDeAnotacoes}`, JSON.stringify(anotacaoInfo))
+        localStorage.setItem(`anotacao ${idAnotacao}`, JSON.stringify(anotacaoInfo))
         localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
     }
 
