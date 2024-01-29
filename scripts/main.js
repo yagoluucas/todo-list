@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     let quantidadeDeAnotacoes
+    let idAnotacao
     const main = document.querySelector('main')
     const sectionApagarAnotacao = document.querySelector('.js-section-apagar-anotacao')
     const btnSectionApagarAnotacao = document.querySelectorAll('.js-section-apagar-anotacao button')
@@ -7,21 +8,22 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnGerarAnotacao = document.querySelector('.js-btn-gerar-anotacao')
     const data = new Date()
     const header = document.querySelector('header')
-    if (localStorage.getItem('quantidadeDeAnotacoes') >= 1) {
-        quantidadeDeAnotacoes = +localStorage.getItem('quantidadeDeAnotacoes')
-        let anotacoes = []
-        let n = 1
-        do{
-            n++
-            let infoAnotacao = JSON.parse(localStorage.getItem(`anotacao ${n}`))
-            if(infoAnotacao) {
-                gerarSection(infoAnotacao[0], infoAnotacao[1], infoAnotacao[2])
-                anotacoes.push(infoAnotacao)
-            }
-        }while(anotacoes.length < quantidadeDeAnotacoes)
 
-    } else {
+    // quando remove todas as anotações fica como null, precisa arrumar, porém está funcional
+    if (localStorage.getItem('idsAnotacao') == null || localStorage.getItem('quantidadeDeAnotacoes') == null) {
         quantidadeDeAnotacoes = 0
+        idAnotacao = 0
+        localStorage.setItem('idsAnotacao', JSON.stringify([]))
+    } else {
+        idAnotacao = JSON.parse(localStorage.getItem('idsAnotacao'))
+        idAnotacao = idAnotacao[idAnotacao.length - 1]
+        quantidadeDeAnotacoes = JSON.parse(localStorage.getItem('quantidadeDeAnotacoes'))
+        console.log(quantidadeDeAnotacoes, idAnotacao)
+        const anotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
+        anotacoes.forEach((id) => {
+            let infoAnotacao = JSON.parse(localStorage.getItem(`anotacao ${id}`))
+            gerarSection(infoAnotacao[0], infoAnotacao[1], infoAnotacao[2])
+        })
     }
 
     function gerarSection(textoAnotacao, textoDataAnotacao, idAnotacao) {
@@ -43,17 +45,29 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.appendChild(imgLixeira)
         main.insertBefore(sectionAnotacao, main.firstChild)
         imgLixeira.addEventListener('click', apagarAnotacao)
+        let arrayComId = JSON.parse(localStorage.getItem('idsAnotacao'))
+        if (!(arrayComId.includes(idAnotacao))) {
+            arrayComId.push(idAnotacao)
+        }
+        localStorage.setItem('idsAnotacao', JSON.stringify(arrayComId))
     }
 
     function apagarAnotacao(lixeiraClicado) {
-        quantidadeDeAnotacoes -= 1
-        localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
         function confirmaApagarAnotacao() {
             btnSectionApagarAnotacao.forEach((btn) => btn.removeEventListener('click', confirmaApagarAnotacao))
             switch (this.textContent) {
                 case "Sim":
+                    let idAnotacaoRemovida = lixeiraClicado.target.parentElement.getAttribute('data-idAnotacao')
+                    console.log(idAnotacaoRemovida)
+                    let idsAnotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
+                    idsAnotacoes.splice(idsAnotacoes.indexOf(idAnotacaoRemovida), 1)
+                    localStorage.setItem('idsAnotacao', JSON.stringify(idsAnotacoes))
+                    if (+localStorage.getItem('quantidadeDeAnotacoes') >= 1) {
+                        quantidadeDeAnotacoes--
+                        localStorage.setItem('quantidadeDeAnotacoes', quantidadeDeAnotacoes)
+                    }
                     main.removeChild(lixeiraClicado.target.parentElement)
-                    localStorage.removeItem(`anotacao ${lixeiraClicado.target.parentElement.getAttribute('data-idAnotacao')}`)
+                    localStorage.removeItem(`anotacao ${idAnotacaoRemovida}`)
                     btnSectionApagarAnotacao[0].parentElement.classList.add('none')
                     sectionApagarAnotacao.firstElementChild.textContent = 'Anotação apagada'
                     setTimeout(() => {
@@ -88,10 +102,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function gerarAnotacao() {
         quantidadeDeAnotacoes++
+        idAnotacao++
         const mesFormatado = data.getMonth() + 1 < 10 ? '0'.concat(`${data.getMonth() + 1}`) : data.getMonth() + 1
         const textoData = `data da anotação : ${data.getDate()}/${mesFormatado}/${data.getFullYear()}`
-        gerarSection(inputTextoAnotacao.value, textoData, quantidadeDeAnotacoes)
-        const anotacaoInfo = [inputTextoAnotacao.value, textoData, quantidadeDeAnotacoes]
+        gerarSection(inputTextoAnotacao.value, textoData, idAnotacao)
+        const anotacaoInfo = [inputTextoAnotacao.value, textoData, idAnotacao]
         localStorage.setItem(`anotacao ${quantidadeDeAnotacoes}`, JSON.stringify(anotacaoInfo))
         localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
     }
