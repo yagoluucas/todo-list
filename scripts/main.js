@@ -35,11 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.appendChild(dataAnotacao)
         sectionAnotacao.appendChild(paragrafoAnotacao)
         let imgLixeira = document.createElement('img')
-        try {
-            imgLixeira.setAttribute('src', '../image/lixeira.png')
-        } catch (error) {
-            imgLixeira.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/10708/10708453.png')
-        }
+        imgLixeira.setAttribute('src', '../image/lixeira.png')
         imgLixeira.setAttribute('alt', 'lixeira')
         imgLixeira.classList.add('img-lixeira', 'js-img-lixeira')
         sectionAnotacao.appendChild(imgLixeira)
