@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.appendChild(dataAnotacao)
         sectionAnotacao.appendChild(paragrafoAnotacao)
         let imgLixeira = document.createElement('img')
-        imgLixeira.setAttribute('src', '../image/lixeira.svg')
+        imgLixeira.setAttribute('src', '../image/lixeira.png')
         imgLixeira.setAttribute('alt', 'lixeira')
         imgLixeira.classList.add('img-lixeira', 'js-img-lixeira')
         sectionAnotacao.appendChild(imgLixeira)
