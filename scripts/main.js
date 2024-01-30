@@ -13,8 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
         idAnotacao = 0
         localStorage.setItem('idsAnotacao', JSON.stringify([]))
     } else {
-        idAnotacao = JSON.parse(localStorage.getItem('idsAnotacao'))
-        idAnotacao = (idAnotacao[idAnotacao.length - 1])
+        idAnotacao = JSON.parse(localStorage.getItem('ultimoId'))
         quantidadeDeAnotacoes = JSON.parse(localStorage.getItem('quantidadeDeAnotacoes'))
         const anotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
         anotacoes.forEach((id) => {
@@ -105,6 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const anotacaoInfo = [inputTextoAnotacao.value, textoData, idAnotacao]
         localStorage.setItem(`anotacao ${idAnotacao}`, JSON.stringify(anotacaoInfo))
         localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
+        localStorage.setItem('ultimoId', idAnotacao)
     }
 
     inputTextoAnotacao.addEventListener('keyup', () => {
