@@ -1,6 +1,7 @@
 @import url('anotacoes.css');
 @import url('form.css');
 @import url('apagar-anotacao.css');
+@import url('mobile.css');
 * {
     margin: 0;
     padding: 0;

@@ -1,0 +1,15 @@
+@media screen and (max-width:760px) {
+    form{
+        flex-direction: column;
+    }
+
+    form input{
+        margin: 10px 0 !important;
+        width: 100%;
+    }
+
+    section.section-apagar-anotacao {
+        width: 85%;
+        left: 7.5%;
+    }
+}

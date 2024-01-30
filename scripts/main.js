@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         sectionApagarAnotacao.firstElementChild.textContent = 'Deseja Realmente apagar a anotação ?'
                         btnSectionApagarAnotacao.forEach((btn) => btn.classList.remove('none'))
                         removerFundoApagarAnotacao()
-                    }, 1500)
+                    }, 1300)
                     break
 
                 case "Não":
