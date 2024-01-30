@@ -107,11 +107,20 @@ window.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('ultimoId', idAnotacao)
     }
 
+    inputTextoAnotacao.addEventListener('keydown', (e) => {
+        if(e.key == 'Enter') {
+            e.preventDefault()
+            gerarAnotacao()
+        }
+    })
+
     inputTextoAnotacao.addEventListener('keyup', () => {
         if (inputTextoAnotacao.checkValidity()) {
+            btnGerarAnotacao.style.cursor = 'pointer'         
             btnGerarAnotacao.addEventListener('click', gerarAnotacao)
             btnGerarAnotacao.removeAttribute('disabled')
         } else {
+            btnGerarAnotacao.style.cursor = 'auto'
             btnGerarAnotacao.setAttribute('disabled', 'true')
             btnGerarAnotacao.removeEventListener('click', gerarAnotacao)
         }
