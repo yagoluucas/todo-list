@@ -35,8 +35,18 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.appendChild(dataAnotacao)
         sectionAnotacao.appendChild(paragrafoAnotacao)
         let imgLixeira = document.createElement('img')
-        imgLixeira.setAttribute('src', '../image/lixeira.png')
-        imgLixeira.setAttribute('alt', 'lixeira')
+        if(imgLixeira.setAttribute('src', '../image/lixeira.svg') != undefined 
+        || imgLixeira.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/391/391104.png') != undefined) {
+            imgLixeira.setAttribute('alt', 'lixeira')
+            if(imgLixeira.setAttribute('src', '../image/lixeira.svg') == undefined ) {
+                imgLixeira.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/391/391104.png')
+            } else{
+                imgLixeira.setAttribute('src', '../image/lixeira.svg')
+            }
+        } 
+        else {
+            imgLixeira = document.createElement('p')
+        }
         imgLixeira.classList.add('img-lixeira', 'js-img-lixeira')
         sectionAnotacao.appendChild(imgLixeira)
         main.insertBefore(sectionAnotacao, main.firstChild)
