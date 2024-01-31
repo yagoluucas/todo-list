@@ -1,3 +1,4 @@
+import * as modicarTodasAnotacoes from './todas-as-anotacoes.js';
 window.addEventListener('DOMContentLoaded', () => {
     let quantidadeDeAnotacoes
     let idAnotacao
@@ -23,6 +24,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function gerarSection(textoAnotacao,idAnotacao) {
+        const checkboxAnotacao = document.createElement('input')
+        checkboxAnotacao.classList.add('checkbox')
+        checkboxAnotacao.setAttribute('type', 'checkbox')
         const sectionAnotacao = document.createElement('section')
         sectionAnotacao.classList.add('section-anotacao')
         sectionAnotacao.setAttribute('data-idAnotacao', idAnotacao)
@@ -35,6 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
         imgLixeira.setAttribute('alt', 'lixeira')
         imgLixeira.classList.add('img-lixeira', 'js-img-lixeira')
         sectionAnotacao.appendChild(imgLixeira)
+        sectionAnotacao.insertBefore(checkboxAnotacao, paragrafoAnotacao)
         containerAnotacoes.insertBefore(sectionAnotacao, containerAnotacoes.firstChild)
         imgLixeira.addEventListener('click', apagarAnotacao)
         let arrayComId = JSON.parse(localStorage.getItem('idsAnotacao'))
@@ -102,6 +107,8 @@ window.addEventListener('DOMContentLoaded', () => {
         localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
         localStorage.setItem('ultimoId', idAnotacao)
         inputTextoAnotacao.value = ''
+        btnGerarAnotacao.setAttribute('disabled', 'true')
+        btnGerarAnotacao.style.cursor = 'auto'
     }
 
     inputTextoAnotacao.addEventListener('keydown', (e) => {

@@ -1,0 +1,8 @@
+main > div.acao-todas-anotacoes {
+    display: flex;
+    margin: 25px auto auto auto;
+}
+
+main > div.acao-todas-anotacoes button {
+    padding: 10px 8px;
+}

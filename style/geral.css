@@ -2,6 +2,7 @@
 @import url('form.css');
 @import url('apagar-anotacao.css');
 @import url('mobile.css');
+@import url('container-acao-todas-anotacoes.css');
 * {
     margin: 0;
     padding: 0;
@@ -10,19 +11,27 @@
 
 body {
     color: #F2F2F2;
+    font-size: 62.5%;
 }
 
 .conteudo-pagina {
-    margin: 100px;
+    width: 60%;
+    margin: 100px auto;
+    max-width: 700px;
+    min-width: 260px;
     border-radius: 5px;
     background: #6A73A6;
     padding-bottom: 50px;
 }
 
-body main div section {
+
+body main div section, main > div.acao-todas-anotacoes, form {
     min-width: 80px;
     max-width: 550px;
-    width: 90%;
+    width: 85%;
+}    
+
+body main div section {
     padding: 10px 0 1px 0;
     position: relative;
     border-bottom:1px solid #c4c4c4 ;
