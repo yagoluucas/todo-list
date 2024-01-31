@@ -1,14 +1,25 @@
-import * as modicarTodasAnotacoes from './todas-as-anotacoes.js';
 window.addEventListener('DOMContentLoaded', () => {
     let quantidadeDeAnotacoes
     let idAnotacao
     const main = document.querySelector('main')
     const sectionApagarAnotacao = document.querySelector('.js-section-apagar-anotacao')
     const btnSectionApagarAnotacao = document.querySelectorAll('.js-section-apagar-anotacao button')
+
     const inputTextoAnotacao = document.querySelector('.js-texto-anotacao')
     const btnGerarAnotacao = document.querySelector('.js-btn-gerar-anotacao')
     const containerAnotacoes = document.querySelector('.js-anotacoes')
     const header = document.querySelector('header')
+    const btnApagarTodasAnotacoes = document.querySelector('.js-btn-apagar-todas-anotacoes')
+    btnApagarTodasAnotacoes.addEventListener('click', () => {
+        const todosCheckbox = document.querySelectorAll('.checkbox:checked')
+        let idChecbox = []
+        // console.log()
+        todosCheckbox.forEach((e) => {
+            idChecbox.push(e)
+        })
+        apagarTodasAnotacoes(idChecbox)
+    })
+
     if (localStorage.getItem('idsAnotacao') == null || localStorage.getItem('quantidadeDeAnotacoes') == null) {
         quantidadeDeAnotacoes = 0
         idAnotacao = 0
@@ -23,10 +34,11 @@ window.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    function gerarSection(textoAnotacao,idAnotacao) {
+    function gerarSection(textoAnotacao, idAnotacao) {
         const checkboxAnotacao = document.createElement('input')
         checkboxAnotacao.classList.add('checkbox')
         checkboxAnotacao.setAttribute('type', 'checkbox')
+        checkboxAnotacao.setAttribute('value', idAnotacao)
         const sectionAnotacao = document.createElement('section')
         sectionAnotacao.classList.add('section-anotacao')
         sectionAnotacao.setAttribute('data-idAnotacao', idAnotacao)
@@ -41,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.appendChild(imgLixeira)
         sectionAnotacao.insertBefore(checkboxAnotacao, paragrafoAnotacao)
         containerAnotacoes.insertBefore(sectionAnotacao, containerAnotacoes.firstChild)
-        imgLixeira.addEventListener('click', apagarAnotacao)
+        imgLixeira.addEventListener('click', confirmarExclusao)
         let arrayComId = JSON.parse(localStorage.getItem('idsAnotacao'))
         if (!(arrayComId.includes(idAnotacao))) {
             arrayComId.push(idAnotacao)
@@ -49,21 +61,13 @@ window.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('idsAnotacao', JSON.stringify(arrayComId))
     }
 
-    function apagarAnotacao(lixeiraClicado) {
+    function confirmarExclusao(lixeiraClicada) {
         function confirmaApagarAnotacao() {
             btnSectionApagarAnotacao.forEach((btn) => btn.removeEventListener('click', confirmaApagarAnotacao))
             switch (this.textContent) {
                 case "Sim":
-                    let idAnotacaoRemovida = lixeiraClicado.target.parentElement.getAttribute('data-idAnotacao')
-                    let idsAnotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
-                    idsAnotacoes.splice(idsAnotacoes.indexOf(+idAnotacaoRemovida), 1)
-                    localStorage.setItem('idsAnotacao', JSON.stringify(idsAnotacoes))
-                    if (+localStorage.getItem('quantidadeDeAnotacoes') >= 1) {
-                        quantidadeDeAnotacoes--
-                        localStorage.setItem('quantidadeDeAnotacoes', quantidadeDeAnotacoes)
-                    }
-                    containerAnotacoes.removeChild(lixeiraClicado.target.parentElement)
-                    localStorage.removeItem(`anotacao ${idAnotacaoRemovida}`)
+                    let idAnotacaoRemovida = lixeiraClicada.target.parentElement.getAttribute('data-idAnotacao')
+                    apagarAnotacao(idAnotacaoRemovida, lixeiraClicada.target)
                     btnSectionApagarAnotacao[0].parentElement.classList.add('none')
                     sectionApagarAnotacao.firstElementChild.textContent = 'Anotação apagada'
                     setTimeout(() => {
@@ -99,8 +103,6 @@ window.addEventListener('DOMContentLoaded', () => {
     function gerarAnotacao() {
         quantidadeDeAnotacoes++
         idAnotacao++
-        // const mesFormatado = data.getMonth() + 1 < 10 ? '0'.concat(`${data.getMonth() + 1}`) : data.getMonth() + 1
-        // const textoData = `data da anotação : ${data.getDate()}/${mesFormatado}/${data.getFullYear()}`
         gerarSection(inputTextoAnotacao.value, idAnotacao)
         const anotacaoInfo = [inputTextoAnotacao.value, idAnotacao]
         localStorage.setItem(`anotacao ${idAnotacao}`, JSON.stringify(anotacaoInfo))
@@ -112,7 +114,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     inputTextoAnotacao.addEventListener('keydown', (e) => {
-        if(e.key == 'Enter') {
+        if (e.key == 'Enter') {
             e.preventDefault()
             gerarAnotacao()
         }
@@ -120,7 +122,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     inputTextoAnotacao.addEventListener('keyup', () => {
         if (inputTextoAnotacao.checkValidity()) {
-            btnGerarAnotacao.style.cursor = 'pointer'         
+            btnGerarAnotacao.style.cursor = 'pointer'
             btnGerarAnotacao.addEventListener('click', gerarAnotacao)
             btnGerarAnotacao.removeAttribute('disabled')
         } else {
@@ -129,4 +131,24 @@ window.addEventListener('DOMContentLoaded', () => {
             btnGerarAnotacao.removeEventListener('click', gerarAnotacao)
         }
     })
+
+    function apagarTodasAnotacoes(checbox) {
+        checbox.forEach(element => {
+            const idAtual = element.getAttribute('value')
+            apagarAnotacao(idAtual, element)
+        });
+    }
+
+
+    function apagarAnotacao(idAnotacaoRemovida, lixeiraClicado) {
+        let idsAnotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
+        idsAnotacoes.splice(idsAnotacoes.indexOf(+idAnotacaoRemovida), 1)
+        localStorage.setItem('idsAnotacao', JSON.stringify(idsAnotacoes))
+        if (+localStorage.getItem('quantidadeDeAnotacoes') >= 1) {
+            quantidadeDeAnotacoes--
+            localStorage.setItem('quantidadeDeAnotacoes', quantidadeDeAnotacoes)
+        }
+        containerAnotacoes.removeChild(lixeiraClicado.parentElement)
+        localStorage.removeItem(`anotacao ${idAnotacaoRemovida}`)
+    }
 })

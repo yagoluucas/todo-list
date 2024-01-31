@@ -22,7 +22,6 @@ margin-top: 5px;
 
 label {
     font-size: 1.2rem;
-    margin-right: 10px;
     cursor: pointer;
 }
 
@@ -60,4 +59,23 @@ input.btn-gerar-anotacao {
 input.btn-gerar-anotacao:disabled {
     background: #b7b8ca;
     color: #76767c;
+}
+
+@media screen and (max-width:1050px) {
+    form{
+        flex-direction: column;
+    }
+
+    form div {
+        margin-top: 0;
+    }
+
+    form div input:nth-child(1) {
+        margin-top: 5px !important;
+    }
+
+    form input{
+        margin: 10px 0 !important;
+        width: 100% !important;
+    }
 }

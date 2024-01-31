@@ -71,3 +71,10 @@ section.animacao-apagar-anotacao {
         transform: translateY(0vh);
     }
 }
+
+@media screen and (max-width:1050px) {
+    section.section-apagar-anotacao {
+        width: 85%;
+        left: 7.5%;
+    }
+}
