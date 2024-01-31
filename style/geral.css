@@ -9,17 +9,24 @@
 }
 
 body {
-    background: #252525;
-    color: #ffff;
+    color: #F2F2F2;
 }
 
-body main > section {
+.conteudo-pagina {
+    margin: 100px;
+    border-radius: 5px;
+    background: #6A73A6;
+    padding-bottom: 50px;
+}
+
+body main div section {
     min-width: 80px;
     max-width: 550px;
     width: 90%;
-    padding: 10px;
-    border: 1px solid #cccc;
+    padding: 10px 0 1px 0;
     position: relative;
+    border-bottom:1px solid #c4c4c4 ;
+    
 }
 
 .escurecer-fundo {

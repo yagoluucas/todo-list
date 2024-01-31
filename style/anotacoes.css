@@ -6,20 +6,21 @@ main {
     margin-top: 30px;
 }
 
-main > section.section-anotacao {
+main > div.container-anotacoes {
+width: 100%;
+margin-top: 25px;
+}
+
+main > div section.section-anotacao {
     margin: 15px auto 0 auto;
     animation: criar-section 0.3s forwards;
-    border-radius:5px ;
     display: flex;
-    padding-bottom: 45px;
 }
 
 section.section-anotacao p.anotacao {
-    padding-bottom: 15px;
     margin-bottom: 5px;
-    width: 100%;
-    border-bottom: 1px solid #c4c4c4;
     word-break: break-all;
+    width: 93%;
 }
 
 img.img-lixeira {
@@ -27,14 +28,8 @@ img.img-lixeira {
     width: 37px;
     cursor: pointer;
     position: absolute;
-    bottom: 1vh;
     right: 0;
-}
-
-p.data-anotacao {
-    position: absolute;
-    left: 2%;
-    bottom: 2vh;
+    bottom: 0;
 }
 
 @keyframes criar-section{

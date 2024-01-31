@@ -7,25 +7,30 @@
     <link rel="stylesheet" href="style/geral.css">
 </head>
 <body>
-    <header>
-        <form>
-            <label for="anotacao">Digite sua anotacao:</label>
-            <input class="js-texto-anotacao" type="text" name="anotacao" id="anotacao" required placeholder="anotacao">
-            <input class="js-btn-gerar-anotacao btn-gerar-anotacao" type="button" disabled value="Gerar Anotacao">
-        </form>
-    </header>
-    <main>      
-    </main>
-    <section class="js-section-apagar-anotacao none section-apagar-anotacao">
-        <p>Deseja Realmente apagar a anotação ?</p>
-        <div>
-            <button>Não</button>
-            <button>Sim</button>
-        </div>
-    </section>
+    <div class="conteudo-pagina">
+        <header>
+            <h1>Lista de tarefas</h1>
+        </header>
+        <main>
+            <form>
+                <label for="anotacao">Digite sua anotacao:</label>
+                <div>
+                    <input class="js-texto-anotacao" type="text" name="anotacao" id="anotacao" required placeholder="Tarefa">
+                    <input class="js-btn-gerar-anotacao btn-gerar-anotacao" type="button" disabled value="Gerar Anotacao">
+                </div>
+            </form>
 
-    <img class="none" src="image/lixeira.png" alt="">
-
+            <div class="js-anotacoes container-anotacoes">
+            </div>
+        </main>
+        <section class="js-section-apagar-anotacao none section-apagar-anotacao">
+            <p>Deseja Realmente apagar a anotação ?</p>
+            <div>
+                <button>Não</button>
+                <button>Sim</button>
+            </div>
+        </section>
+    </div>
     <script src="scripts/main.js"></script>
     
     
