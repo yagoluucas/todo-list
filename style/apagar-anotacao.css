@@ -60,8 +60,6 @@ section.animacao-apagar-anotacao {
     animation: animacao-apagar-anotacao 0.3s forwards;
 }
 
-
-
 @keyframes animacao-apagar-anotacao {
     0% {
         opacity: 0;

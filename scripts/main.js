@@ -11,6 +11,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const containerAnotacoes = document.querySelector('.js-anotacoes')
     const header = document.querySelector('header')
     const btnApagarTodasAnotacoes = document.querySelector('.js-btn-apagar-todas-anotacoes')
+    const btnselecionarTodasAnotacoes = document.querySelector('.js-btn-selecionar-todos')
+    const btnMarcarComoFeito = document.querySelector('.js-btn-tarefa-feita')
     if (localStorage.getItem('idsAnotacao') == null || localStorage.getItem('quantidadeDeAnotacoes') == null) {
         quantidadeDeAnotacoes = 0
         idAnotacao = 0
@@ -52,21 +54,48 @@ window.addEventListener('DOMContentLoaded', () => {
         function confirmaApagarAnotacoes() {
             switch (this.textContent) {
                 case "Sim":
+                    sectionApagarAnotacao.lastElementChild.classList.add("none")
+                    sectionApagarAnotacao.firstElementChild.textContent = 'anotações apagadas'
                     todosCheckbox = document.querySelectorAll('.checkbox:checked')
                     let idChecbox = []
                     todosCheckbox.forEach((e) => {
                         idChecbox.push(e)
                     })
                     apagarTodasAnotacoes(idChecbox)
+                    setTimeout(() => {
+                        removerFundoApagarAnotacao(sectionApagarAnotacao)
+                    }, 1700)
                     break
                 case "Não":
                     removerFundoApagarAnotacao(sectionApagarAnotacao)
                     break
             }
+            btnSectionApagarAnotacao.forEach(btn => btn.removeEventListener('click', confirmaApagarAnotacoes))
+            btnApagarTodasAnotacoes.setAttribute('disabled', 'true')
         }
     })
-    // fim dos eventos //
 
+    btnselecionarTodasAnotacoes.addEventListener('click', () => {
+        todosCheckbox = document.querySelectorAll('.checkbox')
+        let checkboxChecked = document.querySelectorAll('.checkbox:checked')
+        if(todosCheckbox.length == checkboxChecked.length) {
+            todosCheckbox.forEach(e => e.checked = false)
+            console.log(todosCheckbox[0].checked)
+            console.log('oi')
+        } else {
+            todosCheckbox.forEach(e => e.checked = true)
+        }
+        verificarChecbox()
+    })
+
+    btnMarcarComoFeito.addEventListener('click', () => {
+        todosCheckbox = document.querySelectorAll('.checkbox')
+        let todasSection = document.querySelectorAll('.section-anotacao')
+        todosCheckbox.forEach((e) => {
+            console.log()
+        })
+    })
+    // fim dos eventos //
 
     // funcões gerais do programa:
     function gerarSection(textoAnotacao, idAnotacao) {
@@ -107,12 +136,9 @@ window.addEventListener('DOMContentLoaded', () => {
                     btnSectionApagarAnotacao[0].parentElement.classList.add('none')
                     sectionApagarAnotacao.firstElementChild.textContent = 'Anotação apagada'
                     setTimeout(() => {
-                        btnSectionApagarAnotacao[0].parentElement.classList.remove('none')
-                        btnSectionApagarAnotacao.forEach((btn) => btn.classList.remove('none'))
                         removerFundoApagarAnotacao(sectionApagarAnotacao)
                     }, 1300)
                     break
-
                 case "Não":
                     removerFundoApagarAnotacao(sectionApagarAnotacao)
                     break
@@ -126,6 +152,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function removerFundoApagarAnotacao(containerAnotacoes) {
         containerAnotacoes.classList.add('none')
+        containerAnotacoes.lastElementChild.classList.remove('none')
         document.body.classList.remove('escurecer-fundo')
         main.classList.remove('deixar-transparente')
         header.classList.remove('deixar-transparente')
@@ -161,7 +188,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function apagarAnotacao(idAnotacaoRemovida, lixeiraClicado) {
-        // adicionarFundoRemoverAnotacao()
         let idsAnotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
         idsAnotacoes.splice(idsAnotacoes.indexOf(+idAnotacaoRemovida), 1)
         localStorage.setItem('idsAnotacao', JSON.stringify(idsAnotacoes))
@@ -176,8 +202,10 @@ window.addEventListener('DOMContentLoaded', () => {
     function verificarChecbox() {
         todosCheckbox = document.querySelectorAll('.checkbox:checked')
         if (todosCheckbox.length >= 1) {
+            btnMarcarComoFeito.removeAttribute('disabled')
             btnApagarTodasAnotacoes.removeAttribute('disabled')
         } else {
+            btnMarcarComoFeito.setAttribute('disabled', 'true')
             btnApagarTodasAnotacoes.setAttribute('disabled', 'true')
         }
     }

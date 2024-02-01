@@ -1,20 +1,29 @@
 main > div.acao-todas-anotacoes {
     display: flex;
-    margin: 25px auto auto auto;
+    margin: 40px auto auto auto;
+    justify-content: space-between;
+    align-items: center;
 }
 
 main > div.acao-todas-anotacoes button {
     padding: 10px 8px;
     border-radius: 5px;
     border: none;
-    font-size: 1.2rem;
-    background: #FF0000;
-    color: #fff;
+    font-size: 1.2rem;  
     cursor: pointer;
 }
 
-main > div.acao-todas-anotacoes button:disabled {
-    background: #5b0909;
+.btn-apagar-todas-anotacoes {
+    background: #FF0000;
+    color: #fff;
+}
+
+main > div.acao-todas-anotacoes button.btn-apagar-todas-anotacoes:disabled {
+    background: #b45a5a;
     color: #c4c4c4;
     cursor: auto;
+}
+
+@media screen and (max-width:600px) {
+    
 }

@@ -6,13 +6,31 @@ main {
     margin-top: 30px;
 }
 
-main > div.container-anotacoes {
-width: 100%;
-margin-top: 15px;
+main>div.container-anotacoes {
+    width: 85%;
+    margin: 15px auto 0 5%;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: 10px;
+    scrollbar-color: dark;
 }
 
-main > div section.section-anotacao {
-    margin: 15px auto 0 auto;
+/* barra de rolagem para chrome, safari e edge */
+
+div.container-anotacoes::-webkit-scrollbar {
+    width: 10px;
+    background: #999dee;
+    border-radius: 10px;
+}
+
+div.container-anotacoes::-webkit-scrollbar-thumb {
+    background-color: #020659;
+    border-radius: 5px;
+    width: 10px;
+}
+
+main>div section.section-anotacao {
+    margin: 0 auto 10px auto;
     animation: criar-section 0.3s forwards;
     display: flex;
     justify-content: center;
@@ -35,7 +53,7 @@ img.img-lixeira {
     bottom: 0;
 }
 
-@keyframes criar-section{
+@keyframes criar-section {
     0% {
         transform: translateY(-25px);
         opacity: 0;
