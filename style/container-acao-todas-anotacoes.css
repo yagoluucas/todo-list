@@ -11,19 +11,42 @@ main > div.acao-todas-anotacoes button {
     border: none;
     font-size: 1.2rem;  
     cursor: pointer;
+    color: #fff;
 }
 
 .btn-apagar-todas-anotacoes {
     background: #FF0000;
-    color: #fff;
 }
 
-main > div.acao-todas-anotacoes button.btn-apagar-todas-anotacoes:disabled {
-    background: #b45a5a;
+main > div.acao-todas-anotacoes button:disabled {
     color: #c4c4c4;
     cursor: auto;
 }
 
-@media screen and (max-width:600px) {
-    
+main > div.acao-todas-anotacoes button.btn-apagar-todas-anotacoes:disabled {
+    background: #b45a5a;
+}
+
+main .acao-todas-anotacoes button.btn-selecionar-todos {
+background: #020659;
+}
+
+main .acao-todas-anotacoes button.btn-tarefa-feita {
+    background: #4CAF50;
+}
+
+main .acao-todas-anotacoes button.btn-tarefa-feita:disabled {
+    background: #4ea050;
+}
+
+@media screen and (max-width:1060px) {
+   main > div.acao-todas-anotacoes {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+   }
+
+   main > div.acao-todas-anotacoes button {
+    width: 90%;
+   }
 }

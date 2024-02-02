@@ -71,29 +71,27 @@ window.addEventListener('DOMContentLoaded', () => {
                     break
             }
             btnSectionApagarAnotacao.forEach(btn => btn.removeEventListener('click', confirmaApagarAnotacoes))
-            btnApagarTodasAnotacoes.setAttribute('disabled', 'true')
+            verificarChecbox()
         }
     })
 
     btnselecionarTodasAnotacoes.addEventListener('click', () => {
         todosCheckbox = document.querySelectorAll('.checkbox')
-        let checkboxChecked = document.querySelectorAll('.checkbox:checked')
-        if(todosCheckbox.length == checkboxChecked.length) {
-            todosCheckbox.forEach(e => e.checked = false)
-            console.log(todosCheckbox[0].checked)
-            console.log('oi')
-        } else {
-            todosCheckbox.forEach(e => e.checked = true)
-        }
+        todosCheckbox.forEach((e) => {
+            if(!(e.parentElement.classList.contains('anotacao-feita')))
+            e.checked = true
+        })
         verificarChecbox()
     })
 
     btnMarcarComoFeito.addEventListener('click', () => {
-        todosCheckbox = document.querySelectorAll('.checkbox')
-        let todasSection = document.querySelectorAll('.section-anotacao')
+        todosCheckbox = document.querySelectorAll('.checkbox:checked')
         todosCheckbox.forEach((e) => {
-            console.log()
+            e.parentElement.classList.add('anotacao-feita')
+            e.disabled = true
+            e.checked = false
         })
+        verificarChecbox()
     })
     // fim dos eventos //
 
