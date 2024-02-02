@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const anotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
         anotacoes.forEach((id) => {
             let infoAnotacao = JSON.parse(localStorage.getItem(`anotacao ${id}`))
-            gerarSection(infoAnotacao[0], infoAnotacao[1])
+            gerarSection(infoAnotacao[0], infoAnotacao[1], infoAnotacao[2])
         })
     }
     // fim variaveis e verificação do localStorage //
@@ -85,8 +85,12 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     btnMarcarComoFeito.addEventListener('click', () => {
+        // quando entrar no site as anotações já devem estár como marcada
         todosCheckbox = document.querySelectorAll('.checkbox:checked')
         todosCheckbox.forEach((e) => {
+            let anotacaoDesmarcar = JSON.parse(localStorage.getItem(`anotacao ${e.value}`))
+            anotacaoDesmarcar[2] = 1
+            localStorage.setItem(`anotacao ${e.value}`, JSON.stringify(anotacaoDesmarcar))
             e.parentElement.classList.add('anotacao-feita')
             e.disabled = true
             e.checked = false
@@ -96,7 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // fim dos eventos //
 
     // funcões gerais do programa:
-    function gerarSection(textoAnotacao, idAnotacao) {
+    function gerarSection(textoAnotacao, idAnotacao, marcadoComoFeito) {
         const checkboxAnotacao = document.createElement('input')
         checkboxAnotacao.classList.add('checkbox')
         checkboxAnotacao.setAttribute('type', 'checkbox')
@@ -108,11 +112,16 @@ window.addEventListener('DOMContentLoaded', () => {
         const paragrafoAnotacao = document.createElement('p')
         paragrafoAnotacao.textContent = textoAnotacao
         paragrafoAnotacao.classList.add('anotacao')
-        sectionAnotacao.appendChild(paragrafoAnotacao)
         let imgLixeira = document.createElement('img')
         imgLixeira.setAttribute('src', './image/lixeira.svg')
         imgLixeira.setAttribute('alt', 'lixeira')
         imgLixeira.classList.add('img-lixeira', 'js-img-lixeira')
+        if(marcadoComoFeito == 1) {
+            sectionAnotacao.classList.add('anotacao-feita')
+            checkboxAnotacao.checked = false
+            checkboxAnotacao.disabled = true
+        }
+        sectionAnotacao.appendChild(paragrafoAnotacao)
         sectionAnotacao.appendChild(imgLixeira)
         sectionAnotacao.insertBefore(checkboxAnotacao, paragrafoAnotacao)
         containerAnotacoes.insertBefore(sectionAnotacao, containerAnotacoes.firstChild)
@@ -159,8 +168,8 @@ window.addEventListener('DOMContentLoaded', () => {
     function gerarAnotacao() {
         quantidadeDeAnotacoes++
         idAnotacao++
-        gerarSection(inputTextoAnotacao.value, idAnotacao)
-        const anotacaoInfo = [inputTextoAnotacao.value, idAnotacao]
+        gerarSection(inputTextoAnotacao.value, idAnotacao, 0)
+        const anotacaoInfo = [inputTextoAnotacao.value, idAnotacao, 0]
         localStorage.setItem(`anotacao ${idAnotacao}`, JSON.stringify(anotacaoInfo))
         localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
         localStorage.setItem('ultimoId', idAnotacao)

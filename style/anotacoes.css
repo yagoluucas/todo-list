@@ -9,12 +9,9 @@ main {
 main>div.container-anotacoes {
     width: 85%;
     margin: 15px auto 0 5%;
-    max-height: 200px;
+    max-height: 260px;
     overflow-y: auto;
-    scrollbar-width: 10px;
-    scrollbar-color: dark;
 }
-
 /* barra de rolagem para chrome, safari e edge */
 
 div.container-anotacoes::-webkit-scrollbar {
@@ -25,6 +22,7 @@ div.container-anotacoes::-webkit-scrollbar {
 
 div.container-anotacoes::-webkit-scrollbar-thumb {
     background-color: #020659;
+    cursor: pointer;
     border-radius: 5px;
     width: 10px;
 }

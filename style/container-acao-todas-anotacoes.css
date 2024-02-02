@@ -1,6 +1,6 @@
 main > div.acao-todas-anotacoes {
     display: flex;
-    margin: 40px auto auto auto;
+    margin: 25px auto auto auto;
     justify-content: space-between;
     align-items: center;
 }
@@ -44,6 +44,7 @@ main .acao-todas-anotacoes button.btn-tarefa-feita:disabled {
     flex-direction: column;
     gap: 15px;
     justify-content: center;
+    margin-top: 35px;
    }
 
    main > div.acao-todas-anotacoes button {
