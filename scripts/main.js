@@ -13,16 +13,16 @@ window.addEventListener('DOMContentLoaded', () => {
     const btnApagarTodasAnotacoes = document.querySelector('.js-btn-apagar-todas-anotacoes')
     const btnselecionarTodasAnotacoes = document.querySelector('.js-btn-selecionar-todos')
     const btnMarcarComoFeito = document.querySelector('.js-btn-tarefa-feita')
-    if (localStorage.getItem('idsAnotacao') == null || localStorage.getItem('quantidadeDeAnotacoes') == null) {
+    if (getItem('idsAnotacao') == null || getItem('quantidadeDeAnotacoes') == null) {
         quantidadeDeAnotacoes = 0
         idAnotacao = 0
-        localStorage.setItem('idsAnotacao', JSON.stringify([]))
+        setItem('idsAnotacao', [])
     } else {
-        idAnotacao = JSON.parse(localStorage.getItem('ultimoId'))
-        quantidadeDeAnotacoes = JSON.parse(localStorage.getItem('quantidadeDeAnotacoes'))
-        const anotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
+        idAnotacao = getItem('ultimoId')
+        quantidadeDeAnotacoes = getItem('quantidadeDeAnotacoes')
+        const anotacoes = getItem('idsAnotacao')
         anotacoes.forEach((id) => {
-            let infoAnotacao = JSON.parse(localStorage.getItem(`anotacao ${id}`))
+            let infoAnotacao = getItem(`anotacao ${id}`)
             gerarSection(infoAnotacao[0], infoAnotacao[1], infoAnotacao[2])
         })
     }
@@ -49,14 +49,15 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     btnApagarTodasAnotacoes.addEventListener('click', () => {
-        adicionarFundoRemoverAnotacao(sectionApagarAnotacao, 'Deseja apagar todas as anotações ?')
+        todosCheckbox = document.querySelectorAll('.checkbox:checked')
+        let mensagemConfirmacao = todosCheckbox.length <= 1 ? '1 anotação' : `${todosCheckbox.length} anotações`
+        adicionarFundoRemoverAnotacao(sectionApagarAnotacao, `Deseja apagar ${mensagemConfirmacao} ?`)
         btnSectionApagarAnotacao.forEach(btn => btn.addEventListener('click', confirmaApagarAnotacoes))
         function confirmaApagarAnotacoes() {
             switch (this.textContent) {
                 case "Sim":
                     sectionApagarAnotacao.lastElementChild.classList.add("none")
-                    sectionApagarAnotacao.firstElementChild.textContent = 'anotações apagadas'
-                    todosCheckbox = document.querySelectorAll('.checkbox:checked')
+                    sectionApagarAnotacao.firstElementChild.textContent = todosCheckbox.length <=1 ? 'Anotação apagada' : 'Anotações apagadas'
                     let idChecbox = []
                     todosCheckbox.forEach((e) => {
                         idChecbox.push(e)
@@ -88,9 +89,9 @@ window.addEventListener('DOMContentLoaded', () => {
         // quando entrar no site as anotações já devem estár como marcada
         todosCheckbox = document.querySelectorAll('.checkbox:checked')
         todosCheckbox.forEach((e) => {
-            let anotacaoDesmarcar = JSON.parse(localStorage.getItem(`anotacao ${e.value}`))
+            let anotacaoDesmarcar = getItem(`anotacao ${e.value}`)
             anotacaoDesmarcar[2] = 1
-            localStorage.setItem(`anotacao ${e.value}`, JSON.stringify(anotacaoDesmarcar))
+            setItem(`anotacao ${e.value}`, anotacaoDesmarcar)
             e.parentElement.classList.add('anotacao-feita')
             e.disabled = true
             e.checked = false
@@ -126,11 +127,11 @@ window.addEventListener('DOMContentLoaded', () => {
         sectionAnotacao.insertBefore(checkboxAnotacao, paragrafoAnotacao)
         containerAnotacoes.insertBefore(sectionAnotacao, containerAnotacoes.firstChild)
         imgLixeira.addEventListener('click', confirmarExclusao)
-        let arrayComId = JSON.parse(localStorage.getItem('idsAnotacao'))
+        let arrayComId = getItem('idsAnotacao')
         if (!(arrayComId.includes(idAnotacao))) {
             arrayComId.push(idAnotacao)
         }
-        localStorage.setItem('idsAnotacao', JSON.stringify(arrayComId))
+        setItem('idsAnotacao', arrayComId)
     }
 
     function confirmarExclusao(lixeiraClicada) {
@@ -152,7 +153,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        adicionarFundoRemoverAnotacao(sectionApagarAnotacao, 'Deseja Realmente apagar a anotação ?')
+        adicionarFundoRemoverAnotacao(sectionApagarAnotacao, `Deseja apagar a anotação : ${lixeiraClicada.target.previousElementSibling.textContent} ?`)
         btnSectionApagarAnotacao.forEach((btn) => btn.addEventListener('click', confirmaApagarAnotacao))
 
     }
@@ -170,9 +171,9 @@ window.addEventListener('DOMContentLoaded', () => {
         idAnotacao++
         gerarSection(inputTextoAnotacao.value, idAnotacao, 0)
         const anotacaoInfo = [inputTextoAnotacao.value, idAnotacao, 0]
-        localStorage.setItem(`anotacao ${idAnotacao}`, JSON.stringify(anotacaoInfo))
-        localStorage.quantidadeDeAnotacoes = quantidadeDeAnotacoes
-        localStorage.setItem('ultimoId', idAnotacao)
+        setItem(`anotacao ${idAnotacao}`, anotacaoInfo)
+        setItem('quantidadeDeAnotacoes', quantidadeDeAnotacoes)
+        setItem('ultimoId', idAnotacao)
         inputTextoAnotacao.value = ''
         btnGerarAnotacao.setAttribute('disabled', 'true')
         btnGerarAnotacao.style.cursor = 'auto'
@@ -195,16 +196,20 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     function apagarAnotacao(idAnotacaoRemovida, lixeiraClicado) {
-        let idsAnotacoes = JSON.parse(localStorage.getItem('idsAnotacao'))
+        let idsAnotacoes = getItem('idsAnotacao')
         idsAnotacoes.splice(idsAnotacoes.indexOf(+idAnotacaoRemovida), 1)
-        localStorage.setItem('idsAnotacao', JSON.stringify(idsAnotacoes))
-        if (+localStorage.getItem('quantidadeDeAnotacoes') >= 1) {
+        setItem('idsAnotacao', idsAnotacoes)
+        if (getItem('quantidadeDeAnotacoes') >= 1) {
             quantidadeDeAnotacoes--
-            localStorage.setItem('quantidadeDeAnotacoes', quantidadeDeAnotacoes)
+            setItem('quantidadeDeAnotacoes', quantidadeDeAnotacoes)
         }
         containerAnotacoes.removeChild(lixeiraClicado.parentElement)
         localStorage.removeItem(`anotacao ${idAnotacaoRemovida}`)
     }
+
+    function getItem(item) { return JSON.parse(localStorage.getItem(item)) }
+
+    function setItem(key, item) { localStorage.setItem(key, JSON.stringify(item)) }
 
     function verificarChecbox() {
         todosCheckbox = document.querySelectorAll('.checkbox:checked')

@@ -53,6 +53,10 @@ body main div section {
     display: none !important;
 }
 
+input.checkbox {
+    cursor: pointer;
+}
+
 @media screen and (max-width:600px) {
     .conteudo-pagina {
         width: 90%;
